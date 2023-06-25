@@ -13,6 +13,10 @@ const imgSprites = (config = {}) => {
     root = './'
   } = config
   const fullPath = path.join(root, iconPath)
+  if (!fs.existsSync(fullPath)) {
+    console.log(`icon图片路径不存在${fullPath}`)
+    return
+  }
   fs.readdir(fullPath, (err, paths) => {
     if (err) {
       throw err
