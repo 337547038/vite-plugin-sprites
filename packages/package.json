@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-sprites",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "一款基于NodeJs的图片合成Vite插件，可将多张小图合并成一张大图并生成对应的css样式，可有效减少服务器接收和发送请求，提高页面加载速度。",
   "license": "MIT",
   "author": "337547038",

@@ -85,11 +85,13 @@ const writeFile = (imgArray, config) => {
   let cssTemp = `[class*="${prefix}"]:before{content:"";background-image: url(./sprites.png); display:flex;align-items: center}\n`
   imgArray.forEach((item) => {
     imgCanvas.draw(images(item.path), item.x, item.y)
-    const fileName = item.path.substring(0, item.path.indexOf('.'))
+    const fileName = path.basename(item.path)
+    const iconName = fileName.substring(0, fileName.indexOf('.'))
+    //const fileName = item.path.substring(0, item.path.indexOf('.'))
     const x = item.x ? `-${item.x}px` : 0
     const y = item.y ? `-${item.y}px` : 0
     cssTemp += `.${
-      prefix + fileName
+      prefix + iconName
     }:before{background-position: ${x} ${y};width: ${item.width}px;height: ${
       item.height
     }px}\n`
