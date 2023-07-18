@@ -9,7 +9,7 @@ const getRelativePath = (root, cPath, filed) => {
 }
 const imgSprites = (config = {}) => {
   const {
-    iconPath = "/src/assets/icon",
+    iconPath,
     root = './'
   } = config
   const fullPath = path.join(root, iconPath)
@@ -47,7 +47,7 @@ const imgSprites = (config = {}) => {
 const writeFile = (imgArray, config) => {
   const {
     root = './',
-    savePath = config.iconPath || "/src/assets/icon",
+    savePath = config.savePath || config.iconPath,
     width = 500,
     spacing = 5,
     prefix = "icon-"

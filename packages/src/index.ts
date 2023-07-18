@@ -9,8 +9,21 @@ interface Config {
   root?: string
 }
 
+/**
+ * 监听文件增加删除变化，重新生成
+ */
+const watcherIconFile = (file: string, config: Config) => {
+  const filePath = file.replace(/\\/g, '/')
+  if (filePath.indexOf(config.iconPath) !== -1 && (file.endsWith('.jpg') || file.endsWith('.png'))) {
+    spriteImage(config)
+  }
+}
+
 const sprites = (config: Config) => {
   const configDefault = config || {}
+  if (!configDefault.iconPath) {
+    configDefault.iconPath = "/src/assets/icon"
+  }
   return {
     name: 'vitePluginSprites',
     enforce: 'pre',
@@ -19,6 +32,20 @@ const sprites = (config: Config) => {
     },
     buildStart() {
       spriteImage(configDefault)
+    },
+    handleHotUpdate({file, server}) {
+      //console.log('handleHotUpdate',file)
+    },
+    configureServer(server) {
+      server.watcher.on('add', (file) => {
+        watcherIconFile(file, configDefault)
+      })
+      server.watcher.on('change', (file) => {
+        watcherIconFile(file, configDefault)
+      })
+      server.watcher.on('unlink', (file) => {
+        watcherIconFile(file, configDefault)
+      })
     }
   }
 }
